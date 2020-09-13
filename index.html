@@ -3,11 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://use.typekit.net/xxl8dfr.css" />
     <link rel="stylesheet" href="style.css" />
     <title>Online Quiz</title>
   </head>
   <body>
-    <main id="question-box"></main>
+    <header class="nav" role="navigation">
+      <button id="high-score">High Score</button>
+      <div class="time-element">
+        <h3>Timer</h3>
+        <div id="timer">60</div>
+      </div>
+    </header>
+
+    <main id="quiz-box">
+      <h2 id="headline">Welcome to the Javascript Quiz!</h2>
+      <p id="p">
+        Are you ready to be tested on your World Record Runners?
+      </p>
+      <button id="start"><span>Lets Go!</span></button>
+    </main>
     <script src="script.js"></script>
   </body>
 </html>
