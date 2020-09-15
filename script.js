@@ -6,67 +6,170 @@ let headlineElement = document.getElementById('headline');
 let pElement = document.getElementById('p');
 
 
-
 let secondsLeft = 60;
 let questionIndex = 0;
+let correctAnswers = 0;
+let userData = [];
 
-let questionList = [
-    {
+let questionList = [{
         question: 'How is the current mens 5000m World Record Holder?',
-        choice0: 'Cheptegei',
-        choice1: 'Bekele',
-        choice2: 'Engels',
-        choice3: 'Your Mom',
-        correct: '1'
+        answer: [{
+                text: 'Rob',
+                correct: false
+            },
+            {
+                text: 'Jon',
+                correct: true
+            },
+            {
+                text: 'Mike',
+                correct: false
+            },
+            {
+                text: 'Erick',
+                correct: false
+            }
+        ]
+    },
+    {
+        question: 'How many lines does a zebra have?',
+        answer: [{
+                text: '32',
+                correct: false
+            },
+            {
+                text: '192',
+                correct: false
+            },
+            {
+                text: '200000',
+                correct: true
+            },
+            {
+                text: 'oranges',
+                correct: false
+            }
+        ]
+
     }
 ]
-
-
-
-
 
 
 start.addEventListener('click', function () {
     let timerInterval = setInterval(function () {
         timer.textContent = secondsLeft;
         secondsLeft--;
-        
+
         if (secondsLeft === -1) {
             clearInterval(timerInterval);
-            // sendMessage();
+            sendMessage();
         }
 
-    }, 100);
+    }, 1000);
     start.remove();
-    nextQuestion();
-    
+    askQuestion();
+
 })
 
-function nextQuestion(){
+function askQuestion() {
     pElement.remove();
     headlineElement.textContent = `${questionList[questionIndex].question}`;
-    
-    for(i = 0; i < 4; i++){
-       let answerButton = document.createElement('button');
-        answerButton.id = 'choice' + `${[i]}`;
-        answerButton.className = 'answerBtn';
+    questionList[questionIndex].answer.forEach(answer => {
+        let answerButton = document.createElement('button');
+        answerButton.classList = 'choice'
+        answerButton.innerText = answer.text;
+        if (answer.correct === true) {
+            answerButton.dataset.correct = answer.correct;
+            answerButton.id = 'winner';
+        }
+        answerButton.addEventListener('click', checkAnswers);
         quizBox.appendChild(answerButton);
+    })
+}
+
+function checkAnswers(e) {
+    let selectedButton = e.target;
+    let correct = selectedButton.dataset.correct;
+    if (correct !== undefined) {
+        document.getElementById('winner').style.backgroundColor = 'green';
+        correctAnswers++;
+    } else {
+        document.getElementById('winner').style.backgroundColor = 'green';
+        secondsLeft -= 10;
+        timer.textContent = secondsLeft;
+
     }
-    choice0.innerText = `${questionList[questionIndex].choice0}`;
-    choice1.innerText = `${questionList[questionIndex].choice1}`;
-    choice2.innerText = `${questionList[questionIndex].choice2}`;
-    choice3.innerText = `${questionList[questionIndex].choice3}`;
+    questionIndex++;
+
+    setTimeout(function () {
+        resetQuestion();
+    }, 500)
 
 }
 
+function resetQuestion() {
+    for (i = 0; i < 4; i++) {
+        var elem = document.querySelector('.choice');
+        elem.parentNode.removeChild(elem);
+    }
 
+    if (questionIndex < questionList.length) {
+        askQuestion();
+    } else {
+        endGame();
+    }
+
+}
+
+function endGame() {
+    headlineElement.textContent = 'You Finished!';
+    let resultBox = document.createElement('h3');
+    let resultForm = document.createElement('form');
+    let submitBtn = document.createElement('button')
+    submitBtn.id = 'submit'
+    submitBtn.innerText = 'Submit'
+    resultForm.id = 'form'
+    let resultInput = document.createElement('input')
+    resultInput.type = 'text';
+    resultInput.placeholder = 'Your name here';
+    resultInput.style.textAlign = 'center'
+    resultBox.id = 'results';
+    resultBox.innerText = 'You got ' + `${correctAnswers} ` + 'right!'
+    quizBox.appendChild(resultBox);
+    quizBox.appendChild(resultForm);
+    quizBox.appendChild(resultInput);
+    quizBox.appendChild(submitBtn);
+    secondsLeft = 0;
+    inIt();
+
+    submitBtn.addEventListener('click', function () {
+        let user = [{
+            name: resultInput.value.trim(),
+            score: correctAnswers
+        }]
+        Array.prototype.push.apply(userData, user)
+        localStorage.setItem("user", JSON.stringify(userData));
+
+    })
+}
+
+function inIt() {
+    var storedData = JSON.parse(localStorage.getItem("user"));
+    if (storedData !== null) {
+        userData = storedData;
+    }
+}
 
 
 function sendMessage() {
+    for (i = 0; i < 4; i++) {
+        var elem = document.querySelector('.choice');
+        elem.parentNode.removeChild(elem);
+    }
     headlineElement.textContent = 'Sorry Times Up!';
-    let reset = document.createElement('button');
-    reset.textContent = 'Restart';
-    reset.id = 'reset';
-    quizBox.appendChild(reset);
+
+    setTimeout(function () {
+        endGame();
+    }, 2000)
 
 }
