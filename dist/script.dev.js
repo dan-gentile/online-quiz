@@ -179,7 +179,9 @@ function endGame() {
   quizBox.appendChild(resultInput);
   quizBox.appendChild(submitBtn);
   inIt();
-  secondsLeft = 'NA'; // submitting you score
+  secondsLeft = 'a';
+  timer.style.visibility = 'hidden';
+  document.getElementById('timer-text').style.visibility = 'hidden'; // submitting you score
 
   submitBtn.addEventListener('click', function () {
     // making sure name value is added

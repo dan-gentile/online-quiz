@@ -212,7 +212,10 @@ function endGame() {
     quizBox.appendChild(resultInput);
     quizBox.appendChild(submitBtn);
     inIt();
-    secondsLeft = 'NA'
+    secondsLeft = 'a'
+    timer.style.visibility = 'hidden'
+    document.getElementById('timer-text').style.visibility = 'hidden'
+
 
     // submitting you score
     submitBtn.addEventListener('click', function () {
