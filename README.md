@@ -15,7 +15,7 @@
 
 ### General Info
 
-This is an online quiz, testing your knowledge on running record holders. Its multiple choice style, timed you have got 60seconds to get through 5 questions. If you get a question wrong you are penalized with a 10 second loss. At the end add you name and submit your time to local storage, then challenge yours friends on your computer to compete against you. 
+This is an online quiz, testing your knowledge on running record holders. Its multiple choice style, timed you have got 60seconds to get through 5 questions. If you get a question wrong you are penalized with a 10 second loss. At the end add you name and submit your score to local storage, then challenge yours friends on your computer to compete against you. 
 
 This project has a main index.html page that contains the quiz along with a separate javascript page 'script.js'. It also has a highscore.html page that contains the high score board, that also has its own javascript page 'script2.js'. Both pages share a CSS sheet. The layout has been created with CSS grid, with mobile-first responsive design in mind. 
 
