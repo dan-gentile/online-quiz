@@ -144,8 +144,9 @@ function endGame() {
 
     submitBtn.addEventListener('click', function () {
         let user = [{
-            name: resultInput.value.trim(),
-            score: correctAnswers
+            score: correctAnswers,
+            name: resultInput.value.trim()
+
         }]
         Array.prototype.push.apply(userData, user)
         localStorage.setItem("user", JSON.stringify(userData));
