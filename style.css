@@ -1,7 +1,7 @@
+/* Style Sheet for online-quiz game */
+
 * {
     box-sizing: border-box;
-
-
 }
 
 body {
@@ -14,7 +14,8 @@ body {
     font-style: normal;
 }
 
-#quiz-box {
+#quiz-box,
+#high-score-modal {
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 2;

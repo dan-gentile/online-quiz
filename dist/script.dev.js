@@ -1,46 +1,95 @@
 "use strict";
 
+// This page is linked with index.html
 // define variables -timer-
 var timer = document.getElementById('timer');
 var start = document.getElementById('start');
 var quizBox = document.getElementById('quiz-box');
 var headlineElement = document.getElementById('headline');
 var pElement = document.getElementById('p');
+var highScoreBtn = document.getElementById('quiz-page');
 var secondsLeft = 60;
 var questionIndex = 0;
 var correctAnswers = 0;
-var userData = [];
+var userData = []; // questions
+
 var questionList = [{
-  question: 'How is the current mens 5000m World Record Holder?',
+  question: 'Who is the current mens 5000m World Record Holder?',
   answer: [{
-    text: 'Rob',
+    text: 'Bekele',
     correct: false
   }, {
-    text: 'Jon',
+    text: 'Cheptegei',
     correct: true
   }, {
-    text: 'Mike',
+    text: 'Gebrselassie',
     correct: false
   }, {
-    text: 'Erick',
+    text: 'Komen',
     correct: false
   }]
 }, {
-  question: 'How many lines does a zebra have?',
+  question: "Who is the women's American record holder in the 1500m",
   answer: [{
-    text: '32',
+    text: 'Simpson',
     correct: false
   }, {
-    text: '192',
+    text: 'Cranny',
     correct: false
   }, {
-    text: '200000',
+    text: 'Houlihan',
     correct: true
   }, {
-    text: 'oranges',
+    text: 'Huddle',
     correct: false
   }]
-}];
+}, {
+  question: "Who is the men's world record holder in the 800m",
+  answer: [{
+    text: 'Rudisha',
+    correct: true
+  }, {
+    text: 'Brazier',
+    correct: false
+  }, {
+    text: 'Coe',
+    correct: false
+  }, {
+    text: 'Koskei',
+    correct: false
+  }]
+}, {
+  question: "Who has the Women's world record in the marathon?",
+  answer: [{
+    text: 'Keitany',
+    correct: false
+  }, {
+    text: 'Takahashi',
+    correct: false
+  }, {
+    text: 'Kosgei',
+    correct: true
+  }, {
+    text: 'Radcliffe',
+    correct: false
+  }]
+}, {
+  question: "Who has the Men's world record in the marathon?",
+  answer: [{
+    text: 'Kipsang',
+    correct: false
+  }, {
+    text: 'Kipchoge',
+    correct: true
+  }, {
+    text: 'Tergat',
+    correct: false
+  }, {
+    text: 'Kimetto',
+    correct: false
+  }]
+}]; // start the quiz
+
 start.addEventListener('click', function () {
   var timerInterval = setInterval(function () {
     timer.textContent = secondsLeft;
@@ -53,7 +102,7 @@ start.addEventListener('click', function () {
   }, 1000);
   start.remove();
   askQuestion();
-});
+}); // asking questions
 
 function askQuestion() {
   pElement.remove();
@@ -66,12 +115,15 @@ function askQuestion() {
     if (answer.correct === true) {
       answerButton.dataset.correct = answer.correct;
       answerButton.id = 'winner';
+    } else {
+      answerButton.id = 'wrong';
     }
 
     answerButton.addEventListener('click', checkAnswers);
     quizBox.appendChild(answerButton);
   });
-}
+} // check the answers
+
 
 function checkAnswers(e) {
   var selectedButton = e.target;
@@ -81,7 +133,8 @@ function checkAnswers(e) {
     document.getElementById('winner').style.backgroundColor = 'green';
     correctAnswers++;
   } else {
-    document.getElementById('winner').style.backgroundColor = 'green';
+    document.getElementById('winner').style.backgroundColor = 'green'; // if you get a question wrong, lose 10 seconds 
+
     secondsLeft -= 10;
     timer.textContent = secondsLeft;
   }
@@ -90,7 +143,8 @@ function checkAnswers(e) {
   setTimeout(function () {
     resetQuestion();
   }, 500);
-}
+} // clear out the box for the next question
+
 
 function resetQuestion() {
   for (i = 0; i < 4; i++) {
@@ -103,7 +157,8 @@ function resetQuestion() {
   } else {
     endGame();
   }
-}
+} // when you end the game what happens
+
 
 function endGame() {
   headlineElement.textContent = 'You Finished!';
@@ -124,7 +179,8 @@ function endGame() {
   quizBox.appendChild(resultInput);
   quizBox.appendChild(submitBtn);
   secondsLeft = 0;
-  inIt();
+  inIt(); // submitting you score
+
   submitBtn.addEventListener('click', function () {
     var user = [{
       score: correctAnswers,
@@ -132,6 +188,7 @@ function endGame() {
     }];
     Array.prototype.push.apply(userData, user);
     localStorage.setItem("user", JSON.stringify(userData));
+    document.getElementById('high-score-modal').style.visibility = 'visible';
   });
 }
 
@@ -141,7 +198,8 @@ function inIt() {
   if (storedData !== null) {
     userData = storedData;
   }
-}
+} // if you run out of time 
+
 
 function sendMessage() {
   for (i = 0; i < 4; i++) {
@@ -153,4 +211,9 @@ function sendMessage() {
   setTimeout(function () {
     endGame();
   }, 2000);
+} // button to bring you to high score page
+
+
+function visitHighScores() {
+  window.location = 'highscore.html';
 }

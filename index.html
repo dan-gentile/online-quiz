@@ -8,20 +8,24 @@
     <title>Online Quiz</title>
   </head>
   <body>
+    <!-- nav button and timer element -->
     <header class="nav" role="navigation">
-      <button id="quiz-page">High Scores!</button>
+      <button id="quiz-page" onclick=" visitHighScores() ">High Scores!</button>
       <div class="time-element">
-        <h3>Timer</h3>
         <div id="timer">60</div>
+        <h3 id="timer-text">Timer</h3>
       </div>
     </header>
-
+    <!-- quiz element -->
     <main id="quiz-box">
-      <h2 id="headline">Welcome to the Javascript Quiz!</h2>
-      <p id="p">Are you ready to be tested on your World Record Runners?</p>
+      <h2 id="headline">Running Records Quiz!</h2>
+      <p id="p">Are you ready to be tested on your Running Records?</p>
       <button id="start"><span>Lets Go!</span></button>
     </main>
-
+    <div id="high-score-modal" style="visibility: hidden">
+      <h3>Submitted</h3>
+    </div>
+    <!-- javascript script  -->
     <script src="script.js"></script>
   </body>
 </html>

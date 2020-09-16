@@ -1,12 +1,14 @@
 "use strict";
 
+// This page is linked with highscore.html 
+// variables are defined below 
 var highScoreData = JSON.parse(localStorage.getItem("user"));
 var name = document.getElementById('names');
-var showScore = document.getElementById('scores');
+var showScore = document.getElementById('scores'); // sorting high score data 
+
 highScoreData.sort(function (a, b) {
   return b.score - a.score;
-});
-console.log(highScoreData);
+}); // generating high score list 
 
 function generateTable() {
   for (i = 0; i < highScoreData.length; i++) {
@@ -28,6 +30,12 @@ function generateTable() {
     name.appendChild(userName);
     showScore.appendChild(userScore);
   }
-}
+} // function to switch between pages  
+
+
+function visitQuizPage() {
+  window.location = 'index.html';
+} // running table function
+
 
 generateTable();
