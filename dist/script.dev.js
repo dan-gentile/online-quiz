@@ -178,17 +178,23 @@ function endGame() {
   quizBox.appendChild(resultForm);
   quizBox.appendChild(resultInput);
   quizBox.appendChild(submitBtn);
-  secondsLeft = 0;
-  inIt(); // submitting you score
+  inIt();
+  secondsLeft = 'NA'; // submitting you score
 
   submitBtn.addEventListener('click', function () {
-    var user = [{
-      score: correctAnswers,
-      name: resultInput.value.trim()
-    }];
-    Array.prototype.push.apply(userData, user);
-    localStorage.setItem("user", JSON.stringify(userData));
-    document.getElementById('high-score-modal').style.visibility = 'visible';
+    // making sure name value is added
+    if (resultInput.value.trim() === '') {
+      alert('Please add your name!');
+    } else {
+      var user = [{
+        score: correctAnswers,
+        name: resultInput.value.trim()
+      }];
+      Array.prototype.push.apply(userData, user);
+      localStorage.setItem("user", JSON.stringify(userData));
+      document.getElementById('high-score-modal').style.visibility = 'visible';
+      submitBtn.id = 'start';
+    }
   });
 }
 

@@ -127,6 +127,7 @@ start.addEventListener('click', function () {
 
         if (secondsLeft === -1) {
             clearInterval(timerInterval);
+
             sendMessage();
         }
 
@@ -210,20 +211,25 @@ function endGame() {
     quizBox.appendChild(resultForm);
     quizBox.appendChild(resultInput);
     quizBox.appendChild(submitBtn);
-    secondsLeft = 0;
     inIt();
+    secondsLeft = 'NA'
 
     // submitting you score
     submitBtn.addEventListener('click', function () {
-        let user = [{
-            score: correctAnswers,
-            name: resultInput.value.trim()
+        // making sure name value is added
+        if (resultInput.value.trim() === '') {
+            alert('Please add your name!')
+        } else {
+            let user = [{
+                score: correctAnswers,
+                name: resultInput.value.trim()
 
-        }]
-        Array.prototype.push.apply(userData, user);
-        localStorage.setItem("user", JSON.stringify(userData));
-        document.getElementById('high-score-modal').style.visibility = 'visible'
-
+            }]
+            Array.prototype.push.apply(userData, user);
+            localStorage.setItem("user", JSON.stringify(userData));
+            document.getElementById('high-score-modal').style.visibility = 'visible'
+            submitBtn.id = 'start';
+        }
     })
 }
 
