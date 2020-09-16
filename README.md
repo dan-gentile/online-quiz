@@ -24,7 +24,7 @@ This project was built using the following:
 - CSS
 - Javascript
 
-Link to page: <https://dan-gentile.github.io/password-generator/>
+Link to page: <https://dan-gentile.github.io/online-quiz/>
 
 ### Technologies
 
